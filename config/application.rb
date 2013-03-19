@@ -55,9 +55,10 @@ module Shuffleboard
 
 # Heroku requires this to be false
 config.assets.initialize_on_precompile=false
-
-# For Nexa Bold font
-config.assets.paths << "#{Rails.root}/app/assets/fonts"
+config.assets.precompile += ['cOsO.png']
+config.assets.compress = true
+config.assets.digest = true
+config.action_dispatch.x_sendfile_header = nil
 
     # Enable the asset pipeline
     config.assets.enabled = true
