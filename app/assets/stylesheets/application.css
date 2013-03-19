@@ -11,3 +11,19 @@
  *= require_self
  *= require_tree .
  */
+@import "bootstrap";
+
+@font-face {
+  font-family: 'NexaBold';
+  src: url('<%= asset_path('Nexa Bold.otf') %>');
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-family: NexaBold
+}
+
+h3 {
+  font-family: NexaBold
+}

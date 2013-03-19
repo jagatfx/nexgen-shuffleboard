@@ -1,0 +1,30 @@
+<div class="row span8" style="margin-left:0px;">
+<h3>Welcome!</h3>
+<p>As a new player on the ConnectSolutions shuffleboard ladder, may you have good clean fun and lots of luck</p>
+<%= form_for(@player, :html => { :class => "form-horizontal" }) do |f| %>
+  <% if @player.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
+
+      <ul>
+      <% @player.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="clearfix purp-sep"></div>
+  <div class="control-group">
+    <%= f.label :name, :class => "controls-label", :style => "display: inline;" %>
+    <%= f.text_field :name, :class => "controls", :style => "display: inline;" %>
+  </div>
+  <div class="control-group">
+    <%= f.label :email, :class => "controls-label", :style => "display: inline;" %>
+    <%= f.text_field :email, :class => "controls", :style => "display: inline;" %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+  </div>
+<% end %> 
+</div>

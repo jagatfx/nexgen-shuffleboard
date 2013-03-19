@@ -1,0 +1,36 @@
+<div class="row span8" style="margin-left:0px;">
+<p>This is an admin function, please don't abuse it</p>
+<h1>Listing results</h1>
+
+<table class="table table-hover">
+  <tr>
+    <th>Home player</th>
+    <th>Away player</th>
+    <th>Home score</th>
+    <th>Away score</th>
+    <th>Home rating</th>
+    <th>Away rating</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @results.each do |result| %>
+  <tr>
+    <td><%= link_to result.home_player.name, :controller => 'players', :action => 'show', :id => result.home_player.id %></td>
+    <td><%= link_to result.away_player.name, :controller => 'players', :action => 'show', :id => result.away_player.id %></td>
+    <td><%= result.home_score %></td>
+    <td><%= result.away_score %></td>
+    <td><%= result.home_rating %></td>
+    <td><%= result.away_rating %></td>
+    <td><%= link_to 'Show', result %></td>
+    <td><%= link_to 'Edit', edit_result_path(result) %></td>
+    <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Result', new_result_path %>
+</div>

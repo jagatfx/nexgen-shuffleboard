@@ -5,10 +5,31 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+<style type='text/css'>
+  body {
+    background-color: #FFFFFF;
+  }
+</style>
 </head>
 <body>
+<div class="container">
+<div class="row" style="margin-bottom: 10px">
+  <div class="span3">
+    <img src="<%= asset_path('cOsO.png') %>" style="padding-bottom: 5px;">
+  </div>
+  <div class="span6 offset1">
+    <h1>ConnectSolutions Shuffleboard</h1>
+  </div>
+</div>
+<div class="row span8" style="margin-left:0px">
+  <ul class="nav nav-tabs">
+    <li class="active"><%= link_to 'Home', :controller => 'home', :action => 'index' %></li>
+    <li><%= link_to 'report game', :controller => 'results', :action => 'new' %></li>
+    <li><%= link_to 'new player', :controller => 'players', :action => 'new' %></li>
+  </ul>
+</div>
 
 <%= yield %>
-
+</div>
 </body>
 </html>

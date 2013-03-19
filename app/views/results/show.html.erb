@@ -1,0 +1,38 @@
+<div class="row span8" style="margin-left:0px;">
+<p>This is an admin function, please don't abuse it</p>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Home player:</b>
+  <%= Player.find(@result.home_player_id).name %>
+</p>
+
+<p>
+  <b>Away player:</b>
+  <%= Player.find(@result.away_player_id).name %>
+</p>
+
+<p>
+  <b>Home score:</b>
+  <%= @result.home_score %>
+</p>
+
+<p>
+  <b>Away score:</b>
+  <%= @result.away_score %>
+</p>
+
+<p>
+  <b>Home rating:</b>
+  <%= @result.home_rating %>
+</p>
+
+<p>
+  <b>Away rating:</b>
+  <%= @result.away_rating %>
+</p>
+
+
+<%= link_to 'Edit', edit_result_path(@result) %> |
+<%= link_to 'Back', results_path %>
+</div>

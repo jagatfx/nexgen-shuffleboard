@@ -51,10 +51,13 @@ module Shuffleboard
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
+    config.active_record.whitelist_attributes = false
 
 # Heroku requires this to be false
 config.assets.initialize_on_precompile=false
+
+# For Nexa Bold font
+config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     # Enable the asset pipeline
     config.assets.enabled = true
