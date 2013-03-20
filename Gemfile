@@ -20,7 +20,9 @@ group :production do
   gem 'pg'
 end
 
-gem 'bootstrap-sass-rails'
+gem 'sass-rails'
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                              :git => 'git://github.com/anjlab/bootstrap-rails.git'
 
 gem 'validates_email_format_of', :git => 'git://github.com/alexdunae/validates_email_format_of.git'
 
