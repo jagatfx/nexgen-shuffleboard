@@ -92,11 +92,15 @@ class ResultsController < ApplicationController
       logger.info "calculating..."
       winner = Player.find(result[:home_player_id])
       loser = Player.find(result[:away_player_id])
+      result[:home_player] = winner
+      result[:away_player] = loser
       result[:home_rating] = winner.rating
       result[:away_rating] = loser.rating
       if result[:home_score] < result[:away_score]
         winner = Player.find(result[:away_player_id])
         loser = Player.find(result[:home_player_id])
+        result[:away_player] = winner
+        result[:home_player] = loser
       end
       winner[:wins] += 1
       loser[:losses] += 1
