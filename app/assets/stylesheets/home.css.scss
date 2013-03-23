@@ -15,3 +15,9 @@
   border-bottom: 1px solid #b6e4fb;
   margin-bottom: 20px;
 }
+
+@media all and (max-width: 980px) {
+  .not-essential {
+    display: none;
+  }
+}
