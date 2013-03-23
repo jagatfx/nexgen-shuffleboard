@@ -35,6 +35,7 @@
     <th>Score</th>
     <th>Away Player</th>
     <th>Score</th>
+    <th>Rating Change</th>
     <th>Date Reported</th>
   </tr>
 
@@ -44,6 +45,7 @@
       <td><%= result.home_score %></td>
       <td><%= link_to result.away_player.name, :controller => 'players', :action => 'show', :id => result.away_player.id %></td>
       <td><%= result.away_score %></td>
+      <td><%= result.rating_change %></td>
       <td><%= time_ago_in_words(result.created_at) %> ago</td>
     </tr>
   <% end %>

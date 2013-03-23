@@ -4,6 +4,7 @@
     <th>Name</th>
     <th>Wins</th>
     <th>Losses</th>
+    <th>Win %</th>
     <th>Rating</th>
   </tr>
 
@@ -12,6 +13,11 @@
       <td><%= link_to player.name, :controller => 'players', :action => 'show', :id => player.id %></td>
       <td><%= player.wins %></td>
       <td><%= player.losses %></td>
+      <% if player.wins + player.losses == 0 %>
+        <td>00.0%</td>
+      <% else %>
+        <td><%= number_to_percentage((player.wins.to_f / (player.wins + player.losses).to_f).to_f * 100, :precision => 1) %></td>
+      <% end %>
       <td><%= player.rating %></td>
     </tr>
   <% end %>

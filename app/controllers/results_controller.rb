@@ -112,6 +112,7 @@ class ResultsController < ApplicationController
       logger.info "ch = " + ch.to_s
       winner[:rating] += ch
       loser[:rating] -= ch
+      result[:rating_change] = ch
       result.save
       winner.save
       loser.save

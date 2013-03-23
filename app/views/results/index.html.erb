@@ -1,4 +1,4 @@
-<div class="row span8" style="margin-left:0px;">
+<div class="row span12" style="margin-left:0px;">
 <p>This is an admin function, please don't abuse it</p>
 <h1>Listing results</h1>
 
@@ -10,7 +10,8 @@
     <th>Away score</th>
     <th>Home rating</th>
     <th>Away rating</th>
-    <th></th>
+    <th>Rating Change</th>
+    <th>Game Played</th>
     <th></th>
     <th></th>
   </tr>
@@ -23,6 +24,8 @@
     <td><%= result.away_score %></td>
     <td><%= result.home_rating %></td>
     <td><%= result.away_rating %></td>
+    <td><%= result.rating_change %></td>
+    <td><%= result.created_at %></td>
     <td><%= link_to 'Show', result %></td>
     <td><%= link_to 'Edit', edit_result_path(result) %></td>
     <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -14,7 +14,7 @@ class PlayersController < ApplicationController
   # GET /players/1.json
   def show
     @player = Player.find(params[:id])
-    @results = Result.where('home_player_id = ? OR away_player_id = ?',params[:id],params[:id])
+    @results = Result.where('home_player_id = ? OR away_player_id = ?',params[:id],params[:id]).reverse
 
     respond_to do |format|
       format.html # show.html.erb

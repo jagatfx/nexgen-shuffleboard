@@ -1,23 +1,19 @@
 class Result < ActiveRecord::Base
-  attr_accessible :away_rating, :away_score, :home_rating, :home_score, :home_player, :away_player, :home_player_id, :away_player_id
+  attr_accessible :away_rating, :away_score, :home_rating, :home_score, :home_player, :away_player, :home_player_id, :away_player_id, :rating_change
   belongs_to :home_player, :class_name => 'Player'
   belongs_to :away_player, :class_name => 'Player'
 
-  validates :home_player_id, :away_player, :presence => true
-  validates :away_player_id, :uniqueness => { :scope => :home_player_id, :message => "can't play against yourself" }
-  validates :home_score, :away_score, :presence => true, :numericality => { :only_integer => true }
-  validate :only_one_winner
+  validates :home_player_id, :away_player_id, :presence => true
+  validates :home_score, :away_score, :presence => true, :numericality => { :greater_than_or_equal_to => 0, :only_integer => true }
+  validate :play_against_yourself
 
-  def only_one_winner
-    if self.home_score > self.away_score
-      if self.home_score != 11
-        errors.add("winners score should equal 11")
-      end
+  def play_against_yourself
+    logger.info("Testing play against yourself, home: "+home_player_id.to_s+" away: "+away_player_id.to_s)
+    if (home_player_id == away_player_id)
+      logger.info("Tested away player equals home player")
+      errors.add(:unique_player, " error: you cannot play against yourself!")
     end
-    if self.away_score > self.home_score
-      if self.away_score != 11
-        errors.add("winners score should equal 11")
-      end
-    end
+    logger.info("Tested play against yourself")
   end
+
 end

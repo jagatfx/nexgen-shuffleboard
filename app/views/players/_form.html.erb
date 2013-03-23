@@ -3,9 +3,7 @@
 <p>As a new player on the ConnectSolutions shuffleboard ladder, may you have good clean fun and lots of luck</p>
 <%= form_for(@player, :html => { :class => "form-horizontal" }) do |f| %>
   <% if @player.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
-
+    <div id="error_explanation" class="alert">
       <ul>
       <% @player.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>

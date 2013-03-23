@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @players = Player.all
+    @players = Player.find(:all, :order => 'rating').reverse
   end
 end

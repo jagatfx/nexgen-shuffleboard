@@ -23,9 +23,15 @@
 </div>
 <div class="row span8" style="margin-left:0px">
   <ul class="nav nav-tabs">
-    <li class="active"><%= link_to 'Home', :controller => 'home', :action => 'index' %></li>
-    <li><%= link_to 'report game', :controller => 'results', :action => 'new' %></li>
-    <li><%= link_to 'new player', :controller => 'players', :action => 'new' %></li>
+    <li class="<%= 'active' if params[:controller] == 'home' %>">
+      <%= link_to 'Home', :controller => 'home', :action => 'index' %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'results' %>">
+      <%= link_to 'report game', :controller => 'results', :action => 'new' %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'players' %>">
+      <%= link_to 'new player', :controller => 'players', :action => 'new' %>
+    </li>
   </ul>
 </div>
 

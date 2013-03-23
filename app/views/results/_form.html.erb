@@ -1,11 +1,10 @@
 <div class="row span8" style="margin-left:0px;">
 <h3>Report a new game</h3>
 <p>Shuffleboard ladder games are one on one battles, first to 11 wins</p>
+
 <%= form_for(@result, :html => { :class => "form-horizontal" }) do |f| %>
   <% if @result.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@result.errors.count, "error") %> prohibited this result from being saved:</h2>
-
+    <div id="error_explanation" class="alert">
       <ul>
       <% @result.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
