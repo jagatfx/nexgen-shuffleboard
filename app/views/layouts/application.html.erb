@@ -10,6 +10,11 @@
   body {
     background-color: #FFFFFF;
   }
+  @media all and (max-width: 980px) {
+    .not-essential {
+      display: none;
+    }
+  }
 </style>
 </head>
 <body>
@@ -30,10 +35,10 @@
     <li class="<%= 'active' if params[:controller] == 'results' %>">
       <%= link_to 'report game', :controller => 'results', :action => 'new' %>
     </li>
-    <li class="<%= 'active' if params[:controller] == 'data' %>">
+    <li class="<%= 'active' if params[:controller] == 'data' %> not-essential">
       <%= link_to 'Stats', :controller => 'data', :action => 'index' %>
     </li>
-    <li class="<%= 'active' if params[:controller] == 'players' %>">
+    <li class="<%= 'active' if params[:controller] == 'players' %> not-essential">
       <%= link_to 'new player', :controller => 'players', :action => 'new' %>
     </li>
   </ul>
