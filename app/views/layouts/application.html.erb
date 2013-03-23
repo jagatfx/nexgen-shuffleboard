@@ -24,7 +24,7 @@
     <img src="<%= asset_path('cOsO.png') %>" style="padding-bottom: 5px;">
   </div>
   <div class="span6 offset1">
-    <h1>ConnectSolutions Shuffleboard</h1>
+    <h1><span class="not-essential">ConnectSolutions </span>Shuffleboard</h1>
   </div>
 </div>
 <div class="row span8" style="margin-left:0px">
@@ -35,8 +35,8 @@
     <li class="<%= 'active' if params[:controller] == 'results' %>">
       <%= link_to 'report game', :controller => 'results', :action => 'new' %>
     </li>
-    <li class="<%= 'active' if params[:controller] == 'data' %> not-essential">
-      <%= link_to 'Stats', :controller => 'data', :action => 'index' %>
+    <li style="display: none" class="<%= 'active' if params[:controller] == 'data' %> not-essential">
+      <%= link_to 'stats', :controller => 'data', :action => 'index' %>
     </li>
     <li class="<%= 'active' if params[:controller] == 'players' %> not-essential">
       <%= link_to 'new player', :controller => 'players', :action => 'new' %>
