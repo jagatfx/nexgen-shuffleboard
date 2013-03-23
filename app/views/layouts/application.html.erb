@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type='text/css'>
   body {
     background-color: #FFFFFF;
@@ -28,6 +29,9 @@
     </li>
     <li class="<%= 'active' if params[:controller] == 'results' %>">
       <%= link_to 'report game', :controller => 'results', :action => 'new' %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'data' %>">
+      <%= link_to 'Stats', :controller => 'data', :action => 'index' %>
     </li>
     <li class="<%= 'active' if params[:controller] == 'players' %>">
       <%= link_to 'new player', :controller => 'players', :action => 'new' %>

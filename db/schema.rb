@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315215753) do
+ActiveRecord::Schema.define(:version => 20130323031832) do
 
   create_table "players", :force => true do |t|
     t.string   "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20130315215753) do
     t.datetime "updated_at",     :null => false
     t.integer  "home_player_id"
     t.integer  "away_player_id"
+    t.integer  "rating_change"
   end
 
 end

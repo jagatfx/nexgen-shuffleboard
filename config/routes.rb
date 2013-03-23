@@ -1,4 +1,6 @@
 Shuffleboard::Application.routes.draw do
+  get "data/index"
+
   resources :results
   resources :players
 
