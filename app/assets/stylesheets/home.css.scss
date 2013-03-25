@@ -16,7 +16,7 @@
   margin-bottom: 20px;
 }
 
-@media all and (max-width: 480px) {
+@media handheld {
   .not-essential {
     display: none;
   }
