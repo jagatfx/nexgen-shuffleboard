@@ -78,6 +78,26 @@ class ResultsController < ApplicationController
   # DELETE /results/1.json
   def destroy
     @result = Result.find(params[:id])
+    logger.info "deleting result "+@result.inspect
+    unless @result[:home_rating].blank?
+      winner = Player.find(@result[:home_player_id])
+      loser = Player.find(@result[:away_player_id])
+      @result[:home_player] = winner
+      @result[:away_player] = loser
+      @result[:home_rating] = winner.rating
+      @result[:away_rating] = loser.rating
+      if @result[:home_score] < @result[:away_score]
+        winner = Player.find(@result[:away_player_id])
+        loser = Player.find(@result[:home_player_id])
+      end
+      winner[:wins] -= 1
+      loser[:losses] -= 1
+      ch = @result[:rating_change]
+      winner[:rating] -= ch
+      loser[:rating] += ch
+      winner.save
+      loser.save
+    end
     @result.destroy
 
     respond_to do |format|
