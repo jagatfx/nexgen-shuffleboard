@@ -1,5 +1,5 @@
 class Result < ActiveRecord::Base
-  attr_accessible :away_rating, :away_score, :home_rating, :home_score, :home_player, :away_player, :home_player_id, :away_player_id, :rating_change
+  attr_accessible :away_rating, :away_score, :home_rating, :home_score, :home_player, :away_player, :home_player_id, :away_player_id, :rating_change, :type
   belongs_to :home_player, :class_name => 'Player'
   belongs_to :away_player, :class_name => 'Player'
 
