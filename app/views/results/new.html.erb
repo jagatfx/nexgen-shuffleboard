@@ -1,1 +1,18 @@
-<%= render 'form' %>
+<div class="row span8" style="margin-left:0px;">
+  <h3>Report a new game</h3>
+
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#singles" data-toggle="pill">Singles</a></li>
+    <li><a href="#doubles" data-toggle="pill">Doubles</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="singles">
+      <%= render 'singles_form' %>
+    </div>
+    <div class="tab-pane" id="doubles">
+      <%= render 'doubles_form' %>
+    </div>
+  </div>
+
+</div>

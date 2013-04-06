@@ -1,0 +1,49 @@
+<p>Shuffleboard ladder doubles games are two on two battles, first to 15 wins</p>
+
+<%= form_for(@result, :html => { :class => "form-horizontal" }) do |f| %>
+  <% if @result.errors.any? %>
+    <div id="error_explanation" class="alert">
+      <ul>
+      <% @result.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="clearfix purp-sep"></div>
+  <div class="control-group">
+    <%= f.label :home_player_id, "Home team", :class => "controls-label doubles_label" %>
+    <div class="controls doubles_control">
+      <%= f.collection_select(:home_player_id, Player.find(:all, :order => "name ASC"), :id, :name) %>
+    </div>
+    <div class="controls doubles_control">
+      <%= f.collection_select(:home_partner_id, Player.find(:all, :order => "name ASC"), :id, :name) %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :home_score, :class => "controls-label doubles_label" %>
+    <div class="controls doubles_control">
+      <%= f.number_field :home_score %>
+    </div>
+  </div>
+  <div class="clearfix blue-sep"></div>
+  <div class="control-group">
+    <%= f.label :away_player_id, "Away team", :class => "controls-label doubles_label" %>
+    <div class="controls doubles_control">
+      <%= f.collection_select(:away_player_id, Player.find(:all, :order => "name ASC"), :id, :name) %>
+    </div>
+    <div class="controls doubles_control">
+      <%= f.collection_select(:away_partner_id, Player.find(:all, :order => "name ASC"), :id, :name) %>
+    </div>
+  </div> 
+  <div class="control-group">
+    <%= f.label :away_score, :class => "controls-label doubles_label" %>
+    <div class="controls doubles_control">
+      <%= f.number_field :away_score %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Submit', :class => 'btn btn-info' %>
+  </div>
+<% end %>
