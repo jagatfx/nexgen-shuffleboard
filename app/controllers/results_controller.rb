@@ -4,9 +4,10 @@ class ResultsController < ApplicationController
   def index
     @results = Result.all
     @results.sort_by {|result| result.created_at}.reverse!
-    for result in @results
-      calculate_ratings(result)
-    end
+    # used this at first to make sure all results were calculated when it showed the index, but not a problem now
+    # for result in @results
+    #   calculate_ratings(result)
+    # end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +45,12 @@ class ResultsController < ApplicationController
   # POST /results
   # POST /results.json
   def create
-    @result = Result.new(params[:result])
+    @result = nil
+    if (params[:result][:type] == "ResultDoubles")
+      @result = ResultDoubles.new(params[:result])
+    else
+      @result = Result.new(params[:result])
+    end
 
     respond_to do |format|
       if @result.save
@@ -108,40 +114,40 @@ class ResultsController < ApplicationController
 
   def calculate_ratings( result )
     logger.info "calculate_ratings called with " + result.inspect
-    if result[:home_rating].blank?
-      logger.info "calculating..."
-      winner = Player.find(result[:home_player_id])
-      loser = Player.find(result[:away_player_id])
-      result[:home_player] = winner
-      result[:away_player] = loser
-      result[:home_rating] = winner.rating
-      result[:away_rating] = loser.rating
-      if result[:home_score] < result[:away_score]
-        winner = Player.find(result[:away_player_id])
-        loser = Player.find(result[:home_player_id])
-        result[:away_player] = winner
-        result[:home_player] = loser
-      end
-      winner[:wins] += 1
-      loser[:losses] += 1
-      logger.info "winner-rating = " + winner.rating.to_s
-      logger.info "loser-rating = " + loser.rating.to_s
-      ws = winner.rating - loser.rating
-      ls = ws / 400.0
-      rs = 10 ** ls
-      logger.info "ws = " + ws.to_s + ", ls = " + ls.to_s + ", rs = " + rs.to_s
-      es = (1/(1+rs)).abs.to_f
-      logger.info "es = " + es.to_s
-      ch = (es * 50).to_i
-      logger.info "ch = " + ch.to_s
-      winner[:rating] += ch
-      loser[:rating] -= ch
-      result[:rating_change] = ch
-      result.save
-      winner.save
-      loser.save
-    else
-      logger.info "called calculate_ratings with a result that was already calculated"
+    winner = Player.find(result[:home_player_id])
+    loser = Player.find(result[:away_player_id])
+    result[:home_player] = winner
+    result[:away_player] = loser
+    result[:home_rating] = winner.rating
+    result[:away_rating] = loser.rating
+    if result[:home_score] < result[:away_score]
+      winner = Player.find(result[:away_player_id])
+      loser = Player.find(result[:home_player_id])
+      result[:away_player] = winner
+      result[:home_player] = loser
     end
+    winner[:wins] += 1
+    loser[:losses] += 1
+    ch = calculate_change(winner[:rating],loser[:rating])
+    winner[:rating] += ch
+    loser[:rating] -= ch
+    result[:rating_change] = ch
+    result.save
+    winner.save
+    loser.save
+  end
+
+  def calculate_change (winner_rating, loser_rating)
+    logger.info "winner-rating = " + winner_rating.to_s
+    logger.info "loser-rating = " + loser_rating.to_s
+    ws = winner_rating - loser_rating
+    ls = ws / 400.0
+    rs = 10 ** ls
+    logger.info "ws = " + ws.to_s + ", ls = " + ls.to_s + ", rs = " + rs.to_s
+    es = (1/(1+rs)).abs.to_f
+    logger.info "es = " + es.to_s
+    ch = (es * 50).to_i
+    logger.info "ch = " + ch.to_s
+    return ch
   end
 end
