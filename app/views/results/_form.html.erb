@@ -17,7 +17,7 @@
   <div class="control-group">
     <%= f.label :home_player_id, :class => "controls-label", :style => "display: inline;" %>
     <div class="controls" style="display: inline;">
-      <%= f.collection_select(:home_player_id, Player.all, :id, :name) %>
+      <%= f.collection_select(:home_player_id, Player.find(:all, :order => "name ASC"), :id, :name) %>
     </div>
   </div>
   <div class="control-group">
@@ -30,7 +30,7 @@
   <div class="control-group">
     <%= f.label :away_player_id, :class => "controls-label", :style => "display: inline;" %>
     <div class="controls" style="display: inline;">
-      <%= f.collection_select(:away_player_id, Player.all, :id, :name) %>
+      <%= f.collection_select(:away_player_id, Player.find(:all, :order => "name ASC"), :id, :name) %>
     </div>
   </div> 
   <div class="control-group">
