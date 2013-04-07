@@ -8,6 +8,8 @@ Shuffleboard::Application.routes.draw do
 
   root :to => "home#index"
 
+  resources :result_doubles, :controller => :results
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

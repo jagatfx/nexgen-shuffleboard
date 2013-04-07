@@ -32,6 +32,17 @@
   <%= @result.away_rating %>
 </p>
 
+<% if @result.is_a?(ResultDoubles) %>
+<p>
+  <b>Home partner:</b>
+  <%= Player.find(@result.home_partner_id).name %>
+</p>
+
+<p>
+  <b>Away partner:</b>
+  <%= Player.find(@result.away_partner_id).name %>
+</p>
+<% end %>
 
 <%= link_to 'Edit', edit_result_path(@result) %> |
 <%= link_to 'Back', results_path %>

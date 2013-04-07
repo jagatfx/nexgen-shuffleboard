@@ -2,7 +2,11 @@
 <p>This is an admin function, please don't abuse it</p>
 <h1>Editing result</h1>
 
-<%= render 'form' %>
+<% if @result.is_a?(ResultDoubles) %>
+  <%= render 'doubles_form' %>
+<% else %>
+  <%= render 'singles_form' %>
+<% end %>
 
 <%= link_to 'Show', @result %> |
 <%= link_to 'Back', results_path %>

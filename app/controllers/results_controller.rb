@@ -2,8 +2,10 @@ class ResultsController < ApplicationController
   # GET /results
   # GET /results.json
   def index
-    @results = Result.all
+    @results = Result.find(:all, :conditions => [ "type is NULL"])
     @results.sort_by {|result| result.created_at}.reverse!
+    @dresults = ResultDoubles.all
+    @dresults.sort_by {|result| result.created_at}.reverse!
     # used this at first to make sure all results were calculated when it showed the index, but not a problem now
     # for result in @results
     #   calculate_ratings(result)
@@ -86,21 +88,34 @@ class ResultsController < ApplicationController
     @result = Result.find(params[:id])
     logger.info "deleting result "+@result.inspect
     unless @result[:home_rating].blank?
-      winner = Player.find(@result[:home_player_id])
-      loser = Player.find(@result[:away_player_id])
-      @result[:home_player] = winner
-      @result[:away_player] = loser
-      @result[:home_rating] = winner.rating
-      @result[:away_rating] = loser.rating
       if @result[:home_score] < @result[:away_score]
         winner = Player.find(@result[:away_player_id])
         loser = Player.find(@result[:home_player_id])
+        if @result.is_a? ResultDoubles
+          winner_partner = Player.find(@result[:away_partner_id])
+          loser_partner = Player.find(@result[:home_partner_id])
+        end
+      else
+	winner = Player.find(@result[:home_player_id])
+        loser = Player.find(@result[:away_player_id])
+        if @result.is_a? ResultDoubles
+          winner_partner = Player.find(@result[:home_partner_id])
+          loser_partner = Player.find(@result[:away_partner_id])
+        end
       end
       winner[:wins] -= 1
       loser[:losses] -= 1
       ch = @result[:rating_change]
       winner[:rating] -= ch
       loser[:rating] += ch
+      if @result.is_a? ResultDoubles
+        winner_partner[:wins] -= 1
+        loser_partner[:losses] -= 1
+        winner_partner[:rating] -= ch
+        loser_partner[:rating] -= ch
+        winner_partner.save
+	loser_partner.save
+      end
       winner.save
       loser.save
     end
@@ -114,18 +129,24 @@ class ResultsController < ApplicationController
 
   def calculate_ratings( result )
     logger.info "calculate_ratings called with " + result.inspect
-    winner = Player.find(result[:home_player_id])
-    loser = Player.find(result[:away_player_id])
-    result[:home_player] = winner
-    result[:away_player] = loser
-    result[:home_rating] = winner.rating
-    result[:away_rating] = loser.rating
+    if (result.is_a? ResultDoubles)
+      calculate_doubles_rating( result )
+    else
+      calculate_singles_rating( result )
+    end
+  end
+
+  def calculate_singles_rating( result )
+    logger.info "calculating a singles rating"
     if result[:home_score] < result[:away_score]
       winner = Player.find(result[:away_player_id])
       loser = Player.find(result[:home_player_id])
-      result[:away_player] = winner
-      result[:home_player] = loser
+    else
+      winner = Player.find(result[:home_player_id])
+      loser = Player.find(result[:away_player_id])
     end
+    result[:home_rating] = winner.rating
+    result[:away_rating] = loser.rating
     winner[:wins] += 1
     loser[:losses] += 1
     ch = calculate_change(winner[:rating],loser[:rating])
@@ -135,6 +156,42 @@ class ResultsController < ApplicationController
     result.save
     winner.save
     loser.save
+  end
+
+  def calculate_doubles_rating( result )
+    logger.info "calculating a doubles rating"
+    if result[:home_score] < result[:away_score]
+      winner = Player.find(result[:away_player_id])
+      loser = Player.find(result[:home_player_id])
+      winner_partner = Player.find(result[:away_partner_id])
+      loser_partner = Player.find(result[:home_partner_id])
+    else
+      winner = Player.find(result[:home_player_id])
+      loser = Player.find(result[:away_player_id])
+      winner_partner = Player.find(result[:home_partner_id])
+      loser_partner = Player.find(result[:away_partner_id])
+    end
+    result[:home_rating] = winner.rating
+    result[:away_rating] = loser.rating
+    result[:home_partner_rating] = winner_partner.rating
+    result[:away_partner_rating] = loser_partner.rating
+    winner[:wins] += 1
+    winner_partner[:wins] += 1
+    loser[:losses] += 1
+    loser_partner[:losses] += 1
+    winning_team_rating = (winner[:rating] + winner_partner[:rating]) / 2
+    losing_team_rating = (loser[:rating] + loser_partner[:rating]) / 2
+    ch = calculate_change(winning_team_rating,losing_team_rating)
+    winner[:rating] += ch
+    winner_partner[:rating] += ch
+    loser[:rating] -= ch
+    loser_partner[:rating] += ch
+    result[:rating_change] = ch
+    result.save
+    winner.save
+    winner_partner.save
+    loser.save
+    loser_partner.save
   end
 
   def calculate_change (winner_rating, loser_rating)

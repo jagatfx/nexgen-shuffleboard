@@ -1,39 +1,78 @@
 <div class="row span12" style="margin-left:0px;">
 <p>This is an admin function, please don't abuse it</p>
-<h1>Listing results</h1>
 
-<table class="table table-hover">
-  <tr>
-    <th>Home player</th>
-    <th>Away player</th>
-    <th>Home score</th>
-    <th>Away score</th>
-    <th>Home rating</th>
-    <th>Away rating</th>
-    <th>Rating Change</th>
-    <th>Game Played</th>
-    <th></th>
-    <th></th>
-  </tr>
+<ul class="nav nav-pills">
+  <li class="active"><a href="#singles" data-toggle="pill">Singles</a></li>
+  <li><a href="#doubles" data-toggle="pill">Doubles</a></li>
+</ul>
 
-<% @results.each do |result| %>
-  <tr>
-    <td><%= link_to result.home_player.name, :controller => 'players', :action => 'show', :id => result.home_player.id %></td>
-    <td><%= link_to result.away_player.name, :controller => 'players', :action => 'show', :id => result.away_player.id %></td>
-    <td><%= result.home_score %></td>
-    <td><%= result.away_score %></td>
-    <td><%= result.home_rating %></td>
-    <td><%= result.away_rating %></td>
-    <td><%= result.rating_change %></td>
-    <td><%= result.created_at %></td>
-    <td><%= link_to 'Show', result %></td>
-    <td><%= link_to 'Edit', edit_result_path(result) %></td>
-    <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
+	<div class="tab-content">
+	  <div class="tab-pane active" id="singles">
+	    <table class="table table-hover">
+	      <tr>
+		<th>Home player</th>
+		<th>Away player</th>
+		<th>Home score</th>
+		<th>Away score</th>
+		<th>Home rating</th>
+		<th>Away rating</th>
+		<th>Rating Change</th>
+		<th>Game Played</th>
+		<th></th>
+		<th></th>
+	      </tr>
+	    <% @results.each do |result| %>
+	      <tr>
+		<td><%= link_to result.home_player.name, :controller => 'players', :action => 'show', :id => result.home_player.id %></td>
+		<td><%= link_to result.away_player.name, :controller => 'players', :action => 'show', :id => result.away_player.id %></td>
+		<td><%= result.home_score %></td>
+		<td><%= result.away_score %></td>
+		<td><%= result.home_rating %></td>
+		<td><%= result.away_rating %></td>
+		<td><%= result.rating_change %></td>
+		<td><%= result.created_at %></td>
+		<td><%= link_to 'Show', result %></td>
+		<td><%= link_to 'Edit', :controller => 'results', :action => 'edit', :id => result.id %></td>
+		<td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	      </tr>
+	    <% end %>
+	    </table>
+	  </div>
+	  <div class="tab-pane" id="doubles">
+	    <table class="table table-hover">
+              <tr>
+                <th>Home player</th>
+                <th>Home partner</th>
+                <th>Away player</th>
+                <th>Away partner</th>
+                <th>Home score</th>
+                <th>Away score</th>
+                <th>Home rating</th>
+                <th>Away rating</th>
+                <th>Rating Change</th>
+                <th>Game Played</th>
+                <th></th>
+                <th></th>
+              </tr>
+            <% @dresults.each do |dresult| %>
+              <tr>
+                <td><%= link_to dresult.home_player.name, :controller => 'players', :action => 'show', :id => dresult.home_player.id %></td>
+                <td><%= link_to dresult.home_partner.name, :controller => 'players', :action => 'show', :id => dresult.home_partner.id %></td>
+                <td><%= link_to dresult.away_player.name, :controller => 'players', :action => 'show', :id => dresult.away_player.id %></td>
+                <td><%= link_to dresult.away_partner.name, :controller => 'players', :action => 'show', :id => dresult.away_partner.id %></td>
+                <td><%= dresult.home_score %></td>
+                <td><%= dresult.away_score %></td>
+                <td><%= dresult.home_rating %></td>
+                <td><%= dresult.away_rating %></td>
+                <td><%= dresult.rating_change %></td>
+                <td><%= dresult.created_at %></td>
+		<td><%= link_to 'Edit', :controller => 'results', :action => 'edit', :id => dresult.id %></td>
+                <td><%= link_to 'Destroy', dresult, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+	    </table>
+  </div>
+</div>
 
 <%= link_to 'New Result', new_result_path %>
 </div>
