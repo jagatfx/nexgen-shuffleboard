@@ -2,15 +2,15 @@
   <h3>Report a new game</h3>
 
   <ul class="nav nav-pills">
-    <li class="active"><a href="#singles" data-toggle="pill">Singles</a></li>
-    <li><a href="#doubles" data-toggle="pill">Doubles</a></li>
+    <li class="<%= 'active' if params[:result].blank? || params[:result][:type].blank? %>"><a href="#singles" data-toggle="pill">Singles</a></li>
+    <li class="<%= 'active' if params.has_key?(:result) && params[:result][:type] == 'ResultDoubles' %>"><a href="#doubles" data-toggle="pill">Doubles</a></li>
   </ul>
 
   <div class="tab-content">
-    <div class="tab-pane active" id="singles">
+    <div class="tab-pane <%= 'active' if params[:result].blank? || params[:result][:type].blank? %>" id="singles">
       <%= render 'singles_form' %>
     </div>
-    <div class="tab-pane" id="doubles">
+    <div class="tab-pane <%= 'active' if params.has_key?(:result) && params[:result][:type] == 'ResultDoubles' %>" id="doubles">
       <%= render 'doubles_form' %>
     </div>
   </div>

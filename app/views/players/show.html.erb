@@ -29,26 +29,60 @@
 
 <div class="clearfix blue-sep"></div>
 
-<table class="table table-hover">
-  <tr>
-    <th>Home Player</th>
-    <th>Score</th>
-    <th>Away Player</th>
-    <th>Score</th>
-    <th>Rating Change</th>
-    <th>Date Reported</th>
-  </tr>
+<ul class="nav nav-pills">
+  <li class="active"><a href="#singles" data-toggle="pill">Singles</a></li>
+  <li><a href="#doubles" data-toggle="pill">Doubles</a></li>
+</ul>
 
-  <% @results.each do |result| %>
-    <tr>
-      <td><%= link_to result.home_player.name, :controller => 'players', :action => 'show', :id => result.home_player.id %></td>
-      <td><%= result.home_score %></td>
-      <td><%= link_to result.away_player.name, :controller => 'players', :action => 'show', :id => result.away_player.id %></td>
-      <td><%= result.away_score %></td>
-      <td><%= result.rating_change %></td>
-      <td><%= time_ago_in_words(result.created_at) %> ago</td>
-    </tr>
-  <% end %>
-</table>
+<div class="tab-content">
+  <div class="tab-pane active" id="singles">
+    <table class="table table-hover">
+      <tr>
+        <th>Home Player</th>
+        <th>Score</th>
+        <th>Away Player</th>
+        <th>Score</th>
+        <th>Rating Change</th>
+        <th>Date Reported</th>
+      </tr>
+      <% @results.each do |result| %>
+        <tr>
+          <td><%= link_to result.home_player.name, :controller => 'players', :action => 'show', :id => result.home_player.id %></td>
+          <td><%= result.home_score %></td>
+          <td><%= link_to result.away_player.name, :controller => 'players', :action => 'show', :id => result.away_player.id %></td>
+          <td><%= result.away_score %></td>
+          <td><%= result.rating_change %></td>
+          <td><%= time_ago_in_words(result.created_at) %> ago</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="tab-pane active" id="doubles">
+    <table class="table table-hover">
+      <tr>
+        <th>Home Player</th>
+        <th>Home Partner</th>
+        <th>Score</th>
+        <th>Away Player</th>
+        <th>Away Partner</th>
+        <th>Score</th>
+        <th>Rating Change</th>
+        <th>Date Reported</th>
+      </tr>
+      <% @dresults.each do |result| %>
+        <tr>
+          <td><%= link_to result.home_player.name, :controller => 'players', :action => 'show', :id => result.home_player.id %></td>
+          <td><%= link_to result.home_partner.name, :controller => 'players', :action => 'show', :id => result.home_partner.id %></td>
+          <td><%= result.home_score %></td>
+          <td><%= link_to result.away_player.name, :controller => 'players', :action => 'show', :id => result.away_player.id %></td>
+          <td><%= link_to result.away_partner.name, :controller => 'players', :action => 'show', :id => result.away_partner.id %></td>
+          <td><%= result.away_score %></td>
+          <td><%= result.rating_change %></td>
+          <td><%= time_ago_in_words(result.created_at) %> ago</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
 
 </div>

@@ -48,7 +48,7 @@ class ResultsController < ApplicationController
   # POST /results.json
   def create
     @result = nil
-    if (params[:result][:type] == "ResultDoubles")
+    if (params.has_key?(:result) && params[:result][:type] == "ResultDoubles")
       @result = ResultDoubles.new(params[:result])
     else
       @result = Result.new(params[:result])

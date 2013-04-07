@@ -34,4 +34,8 @@ Shuffleboard::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.after_initialize do |app|
+    app.assets.logger = Logger.new('/dev/null')
+  end
 end

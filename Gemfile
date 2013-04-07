@@ -5,9 +5,7 @@ ruby '1.9.3'
 gem 'rails', '3.2.12'
 
 gem 'heroku'
-group :production do
-  gem 'thin'
-end
+gem 'thin'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
