@@ -112,7 +112,7 @@ class ResultsController < ApplicationController
         winner_partner[:wins] -= 1
         loser_partner[:losses] -= 1
         winner_partner[:rating] -= ch
-        loser_partner[:rating] -= ch
+        loser_partner[:rating] += ch
         winner_partner.save
 	loser_partner.save
       end
@@ -185,7 +185,7 @@ class ResultsController < ApplicationController
     winner[:rating] += ch
     winner_partner[:rating] += ch
     loser[:rating] -= ch
-    loser_partner[:rating] += ch
+    loser_partner[:rating] -= ch
     result[:rating_change] = ch
     result.save
     winner.save
