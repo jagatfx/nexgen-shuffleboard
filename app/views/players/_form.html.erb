@@ -1,6 +1,6 @@
 <div class="row span8" style="margin-left:0px;">
 <h3>Welcome!</h3>
-<p>As a new player on the ConnectSolutions shuffleboard ladder, may you have good clean fun and lots of luck</p>
+<p>Add your information below so we can track your games and rank</p>
 <%= form_for(@player, :html => { :class => "form-horizontal" }) do |f| %>
   <% if @player.errors.any? %>
     <div id="error_explanation" class="alert">
@@ -24,5 +24,5 @@
   <div class="actions">
     <%= f.submit 'Submit', :class => 'btn btn-primary' %>
   </div>
-<% end %> 
+<% end %>
 </div>
